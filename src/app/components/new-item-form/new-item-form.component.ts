@@ -12,4 +12,8 @@ export class NewItemFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(): void {
+    console.log('Submitting...')
+  }
+
 }
