@@ -8,6 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { NewItemFormComponent } from './components/new-item-form/new-item-form.component';
+import { EditItemFormComponent } from './components/edit-item-form/edit-item-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NewItemFormComponent } from './components/new-item-form/new-item-form.c
     FooterComponent,
     CarouselComponent,
     ArticlesComponent,
-    NewItemFormComponent
+    NewItemFormComponent,
+    EditItemFormComponent
   ],
   imports: [
     BrowserModule
