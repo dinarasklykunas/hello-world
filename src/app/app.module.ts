@@ -7,6 +7,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { ArticlesComponent } from './components/articles/articles.component';
+import { NewItemFormComponent } from './components/new-item-form/new-item-form.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ArticlesComponent } from './components/articles/articles.component';
     NavComponent,
     FooterComponent,
     CarouselComponent,
-    ArticlesComponent
+    ArticlesComponent,
+    NewItemFormComponent
   ],
   imports: [
     BrowserModule
