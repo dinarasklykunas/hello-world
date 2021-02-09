@@ -1,0 +1,9 @@
+@import '../../../assets/scss/base/colors';
+
+.articles {
+    margin: 7.5rem 0;
+    
+    header {
+        border-bottom: 1px solid darken($light-color, 5%);
+    }
+}

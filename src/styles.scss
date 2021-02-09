@@ -1,15 +1,9 @@
 @import './assets/scss/base/colors';
 @import './assets/scss/base/variables';
 @import './assets/scss/base/mixins';
-@import './assets/scss/layout/main-header';
-@import './assets/scss/layout/nav';
-@import './assets/scss/layout/carousel';
-@import './assets/scss/layout/articles';
 @import './assets/scss/layout/forms';
-@import './assets/scss/layout/footer';
 @import './assets/scss/layout/alerts';
 @import './assets/scss/layout/buttons';
-@import './assets/scss/responsive/tablet';
 
 a:link { color: $black; }
 a:visited { color: $black; }
