@@ -9,6 +9,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { NewItemFormComponent } from './components/new-item-form/new-item-form.component';
 import { EditItemFormComponent } from './components/edit-item-form/edit-item-form.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EditItemFormComponent } from './components/edit-item-form/edit-item-for
     EditItemFormComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
