@@ -6,6 +6,7 @@
         </h2>
     </header>
     <main id="itemsDisplayPlace" class="d-sm-flex justify-content-center flex-wrap text-center">
+        <app-article *ngFor="let item of items" [item]="item"></app-article>
     </main>
     <div class="text-center">
         <a routerLink="/new-item" class="btn">Add item</a>
