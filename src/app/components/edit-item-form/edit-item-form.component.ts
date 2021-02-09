@@ -12,4 +12,12 @@ export class EditItemFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(): void {
+    console.log('Submitting...')
+  }
+  
+  onDelete(): void {
+    console.log('Deleting...')
+  }
+
 }
