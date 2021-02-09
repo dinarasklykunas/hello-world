@@ -6,7 +6,7 @@ import { NewItemFormComponent } from './components/new-item-form/new-item-form.c
 
 const routes: Routes = [
   { path: '', component: ArticlesComponent },
-  { path: 'edit-item', component: EditItemFormComponent },
+  { path: 'edit-item/:id', component: EditItemFormComponent },
   { path: 'new-item', component: NewItemFormComponent }
 ];
 
