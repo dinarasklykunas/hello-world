@@ -21,16 +21,16 @@ export class ItemService {
     return this.http.get<Item[]>(this.itemsUrl);
   }
 
-  addItem(item: Item):Observable<Item> {
+  addItem(item: Item): Observable<Item> {
     return this.http.post<Item>(this.itemsUrl, item, httpOptions);
   }
 
-  editItem(item: Item):Observable<any> {
+  editItem(item: Item): Observable<any> {
     const url = `${this.itemsUrl}/${item.id}`;
     return this.http.put(url, item, httpOptions);
   }
 
-  deleteItem(item: Item):Observable<any> {
+  deleteItem(item: Item): Observable<any> {
     const url = `${this.itemsUrl}/${item.id}`;
     return this.http.delete(url);
   }

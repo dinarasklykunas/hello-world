@@ -7,19 +7,19 @@ article {
     transition: background-color .25s;
 }
 
-article:hover {
+:hover {
     background-color: lighten($light-color, 10%);
 }
 
-article a > h4 {
+a > h4 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-article a {
+a {
     text-decoration: none;
 }
 
-article img {
+img {
     max-width: 288px;
     max-height: 288px;
 }

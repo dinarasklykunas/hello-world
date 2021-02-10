@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -12,6 +13,7 @@ import { NewItemFormComponent } from './components/new-item-form/new-item-form.c
 import { EditItemFormComponent } from './components/edit-item-form/edit-item-form.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ArticleComponent } from './components/article/article.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,14 @@ import { ArticleComponent } from './components/article/article.component';
     ArticlesComponent,
     NewItemFormComponent,
     EditItemFormComponent,
-    ArticleComponent
+    ArticleComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

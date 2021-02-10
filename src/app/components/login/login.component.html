@@ -1,0 +1,27 @@
+<section class="form">
+    <header>
+        <h2>
+            Login
+        </h2>
+    </header>
+    <p id="alert" class="alert hidden"></p>
+    <form (submit)="$event.preventDefault(); onSubmit()" class="form-horizontal">
+        <div class="form-group">
+            <label for="username" class="col-md-1 control-label">Username</label>
+            <div class="col-md-5">
+                <input type="text" name="username" id="username" [formControl]="username" class="form-control" placeholder="Username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-md-1 control-label">Password</label>
+            <div class="col-md-5">
+                <input type="password" name="password" id="password" [formControl]="password" class="form-control" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-5 offset-md-1 d-sm-flex">
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </div>
+        </div>
+    </form>
+</section>
