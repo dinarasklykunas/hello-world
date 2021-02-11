@@ -15,6 +15,9 @@ import { EditItemFormComponent } from './components/edit-item-form/edit-item-for
 import { AppRoutingModule } from './app-routing.module';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
+import { itemsReducer } from './state/reducers/items.reducer';
+import { ArticlesListComponent } from './components/articles-list/articles-list.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -27,14 +30,20 @@ import { LoginComponent } from './components/login/login.component';
     NewItemFormComponent,
     EditItemFormComponent,
     ArticleComponent,
-    LoginComponent
+    LoginComponent,
+    ArticlesListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({
+      items: itemsReducer
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

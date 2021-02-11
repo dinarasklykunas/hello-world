@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Item } from '../models/Item';
 
 const httpOptions = {
@@ -17,8 +18,10 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
-  getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(this.itemsUrl);
+  getItems(): Observable<Array<Item>> {
+    return this.http
+      .get<Item[]>(this.itemsUrl)
+      // .pipe(map(items => items.items || []));
   }
 
   addItem(item: Item): Observable<Item> {
