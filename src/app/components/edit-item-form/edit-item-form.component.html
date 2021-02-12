@@ -4,7 +4,7 @@
             Edit Item
         </h2>
     </header>
-    <p id="alert" class="alert hidden"></p>
+    <p class="alert">{{ alert }}</p>
     <form (submit)="$event.preventDefault(); onSubmit()" class="form-horizontal">
         <div class="form-group">
             <label for="inputTitle" class="col-md-1 control-label">Title</label>

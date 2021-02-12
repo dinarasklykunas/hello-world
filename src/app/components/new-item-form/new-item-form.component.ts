@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { insertNewItem } from '../articles/articles.actions';
+import { addItem } from '../articles/articles.actions';
 
 @Component({
   selector: 'app-new-item-form',
@@ -23,7 +23,7 @@ export class NewItemFormComponent implements OnInit {
     if (!this.validateForm())
       return;
 
-    this.store.dispatch(insertNewItem({
+    this.store.dispatch(addItem({
       id: 0,
       title: this.title.value,
       date: this.date.value,
