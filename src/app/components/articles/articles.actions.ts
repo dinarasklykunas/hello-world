@@ -3,5 +3,5 @@ import { Item } from "src/app/models/Item";
 
 export const insertNewItem = createAction(
     '[Item] Insert New Item',
-    props<{ Item }>()
+    props<Item>()
 );

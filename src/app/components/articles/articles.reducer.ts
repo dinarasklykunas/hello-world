@@ -34,8 +34,8 @@ export const initialState = {
 
 export const itemsReducer = createReducer(
     initialState,
-    on(insertNewItem, (state, props) => ({
+    on(insertNewItem, (state, item) => ({
         ...state,
-        list: [...state.list, props.Item]
+        list: [...state.list, item]
     }))
 );

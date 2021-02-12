@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { insertNewItem } from '../articles/articles.actions';
 
 @Component({
   selector: 'app-new-item-form',
@@ -6,14 +9,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-item-form.component.scss']
 })
 export class NewItemFormComponent implements OnInit {
+  title = new FormControl('');
+  date = new FormControl('');
+  image = new FormControl('');
+  content = new FormControl('');
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    console.log('Submitting...')
+    if (!this.validateForm())
+      return;
+
+    this.store.dispatch(insertNewItem({
+      id: 0,
+      title: this.title.value,
+      date: this.date.value,
+      image: this.image.value,
+      content: this.content.value
+    }));
+  }
+
+  validateForm(): boolean {
+    if (!this.title.value || !this.date.value || !this.image.value || !this.content.value)
+      return false;
+
+    return true;
   }
 
 }
