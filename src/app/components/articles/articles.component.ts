@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ItemService } from 'src/app/services/item.service';
-import { retrievedItemList } from 'src/app/state/actions/items.actions';
-import { selectItems } from 'src/app/state/selectors/items.selectors';
+import { Observable } from 'rxjs';
+import { Item } from 'src/app/models/Item';
+import { getItemsList } from './articles.selectors';
 
 @Component({
   selector: 'app-articles',
@@ -10,14 +10,12 @@ import { selectItems } from 'src/app/state/selectors/items.selectors';
   styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit {
-  items$ = this.store.pipe(select(selectItems));
+  items$: Observable<Item[]>;
 
-  constructor(private itemService: ItemService, private store: Store) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    // this.itemService.getItems().subscribe(items => this.items = items);
-
-    this.itemService.getItems().subscribe(Item => this.store.dispatch(retrievedItemList({ Item })));
+    this.items$ = this.store.select(getItemsList);
   }
 
 }

@@ -15,9 +15,8 @@ import { EditItemFormComponent } from './components/edit-item-form/edit-item-for
 import { AppRoutingModule } from './app-routing.module';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
-import { itemsReducer } from './state/reducers/items.reducer';
-import { ArticlesListComponent } from './components/articles-list/articles-list.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducer } from './_store';
 
 @NgModule({
   declarations: [
@@ -30,19 +29,23 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     NewItemFormComponent,
     EditItemFormComponent,
     ArticleComponent,
-    LoginComponent,
-    ArticlesListComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({
-      items: itemsReducer
+    StoreModule.forRoot(appReducer, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictActionSerializability: true,
+        strictActionTypeUniqueness: true
+      }
     }),
     StoreDevtoolsModule.instrument({
-      maxAge: 10
+      maxAge: 10,
     })
   ],
   providers: [],
