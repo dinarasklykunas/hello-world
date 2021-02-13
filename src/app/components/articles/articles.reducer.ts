@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { Item } from "src/app/models/Item";
-import { addItem, removeItem } from "./articles.actions";
+import { addItem, editItem, removeItem } from "./articles.actions";
 
 export interface ItemsState {
     list: Item[]
@@ -41,5 +41,9 @@ export const itemsReducer = createReducer(
     on(removeItem, (state, props) => ({
         ...state,
         list: state.list.filter(item => item.id !== props.id)
+    })),
+    on(editItem, (state, item) => ({
+        ...state,
+        list: state.list.map(elem => elem.id === item.id ? item : elem)
     }))
 );

@@ -10,3 +10,8 @@ export const removeItem = createAction(
     '[Item] Remove Item',
     props<{ id: number }>()
 );
+
+export const editItem = createAction(
+    '[Item] Edit Item',
+    props<Item>()
+);
