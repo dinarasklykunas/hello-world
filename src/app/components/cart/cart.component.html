@@ -2,5 +2,19 @@
     <header>
         <h2>Cart</h2>
     </header>
-    <app-article *ngFor="let item of cartItems" [item]="item"></app-article>
+    <!-- <app-article *ngFor="let item of cartItems" [item]="item"></app-article> -->
+    <div *ngIf="cartItems.length === 0">
+        <p>
+            Your cart is empty! Go to <a routerLink="/">homepage</a> or <a routerLink="/products">products</a> and add products to cart.
+        </p>
+    </div>
+    <div *ngFor="let item of cartItems">
+        <span>
+            <img [src]="item.image" [alt]="item.title" width="200">
+        </span>
+        <span>Title: {{ item.title }} </span>
+        <span>Content: {{ item.content }} </span>
+        <span>Count: {{ item.count }} </span>
+        <button (click)="removeItem(item.id)" class="btn">Remove</button>
+    </div>
 </section>

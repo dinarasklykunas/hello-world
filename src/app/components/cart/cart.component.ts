@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Item } from 'src/app/models/Item';
 import { getItemsList } from '../articles/articles.selectors';
+import { removeItem } from './cart.actions';
 import { getCartList } from './cart.selectors';
 
 @Component({
@@ -18,17 +19,27 @@ export class CartComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.cartItemsSubsrition = this.store.select(getCartList).subscribe(ids => {
+    this.getItems();
+  }
+  
+  getItems(): void {
+    this.cartItemsSubsrition = this.store.select(getCartList).subscribe(cartItems => {
       this.itemsSubsrition = this.store.select(getItemsList).subscribe(items => {
-        ids.forEach(id => {
-          const item = items.find(elem => elem.id === id);
-
+        this.cartItems = [];
+        cartItems.forEach(cartItem => {
+          const item = items.find(elem => elem.id === cartItem.id);
+  
           if (item && !this.cartItems.includes(item)) {
-            this.cartItems.push(item);
+            const newItem = { ...item, count: cartItem.count };
+            this.cartItems.push(newItem);
           }
         })
       });
     });
+  }
+
+  removeItem(id: number) {
+    this.store.dispatch(removeItem({ id }));
   }
 
   ngOnDestroy(): void {

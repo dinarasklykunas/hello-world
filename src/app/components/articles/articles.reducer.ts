@@ -26,7 +26,7 @@ export const initialState = {
             id: 3,
             title: 'Initial Item 3',
             date: '2021-02-12',
-            image: '',
+            image: 'https://images-na.ssl-images-amazon.com/images/I/71%2BvvX%2BVCWL._AC_SX450_.jpg',
             content: 'Initial Item 3 Content',
         },
     ]

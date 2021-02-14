@@ -1,7 +1,8 @@
-<article class="d-flex justify-content-center align-items-center">
+<article class="d-flex flex-column justify-content-center align-items-center">
     <a routerLink="edit-item/{{ item.id }}" >
         <img src="{{ item.image }}" alt="{{ item.title }}">
         <h4>{{ item.title }}</h4>
         <p>{{ item.content }}</p>
     </a>
+    <button (click)="addToCart(item.id)" class="btn btn-primary">Add to cart</button>
 </article>
