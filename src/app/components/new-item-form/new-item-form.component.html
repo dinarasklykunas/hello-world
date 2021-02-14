@@ -4,8 +4,8 @@
             Create New Item
         </h2>
     </header>
-    <p id="alert" class="alert hidden"></p>
-    <form (submit)="$event.preventDefault(); onSubmit()" class="form-horizontal">
+    <p class="alert">{{ alert }}</p>
+    <form (submit)="$event.preventDefault(); onSubmit()" [formGroup]="newItemForm" class="form-horizontal">
         <div class="form-group">
             <label for="inputTitle" class="col-md-1 control-label">Title</label>
             <div class="col-md-5">
@@ -13,7 +13,7 @@
                     type="text"
                     name="title"
                     id="inputTitle"
-                    [formControl]="title"
+                    formControlName="title"
                     class="form-control"
                     placeholder="Title"
                     required
@@ -27,7 +27,7 @@
                     type="date"
                     name="date"
                     id="inputDate"
-                    [formControl]="date"
+                    formControlName="date"
                     class="form-control"
                     required
                 >
@@ -40,7 +40,7 @@
                     type="text"
                     name="image"
                     id="inputImage"
-                    [formControl]="image"
+                    formControlName="image"
                     class="form-control"
                     placeholder="Image URL"
                     required
@@ -53,7 +53,7 @@
                 <textarea
                     name="content"
                     id="inputContent"
-                    [formControl]="content"
+                    formControlName="content"
                     cols="30"
                     rows="10"
                     class="form-control"

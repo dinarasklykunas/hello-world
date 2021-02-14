@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Item } from 'src/app/models/Item';
 import { editItem, removeItem } from '../articles/articles.actions';
 import { getItemsList } from '../articles/articles.selectors';
@@ -16,13 +16,19 @@ export class EditItemFormComponent implements OnInit {
   id: number = 0;
   alert: string = '';
 
+  storeSubsription: Subscription = null;
+
   items: Item[] = Array<Item>();
   item: Item = null;
 
-  title = new FormControl();
-  date = new FormControl();
-  image = new FormControl();
-  content = new FormControl();
+  editItemForm = new FormGroup({
+    title: new FormControl(),
+    date: new FormControl(),
+    image: new FormControl(),
+    content: new FormControl()
+  });
+
+  alertTimeout: object | number = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,9 +38,13 @@ export class EditItemFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.store.select(getItemsList).subscribe(items => this.items = items).unsubscribe();
+    this.storeSubsription = this.store.select(getItemsList).subscribe(items => this.items = items);
     this.findItem();
     this.prefillForm();
+  }
+
+  ngOnDestroy(): void {
+    this.storeSubsription.unsubscribe();
   }
 
   findItem() {
@@ -43,53 +53,63 @@ export class EditItemFormComponent implements OnInit {
 
   prefillForm(): void {
     if (!this.item) {
-      console.log('Item was not found')
+      console.log('Product was not found')
       return;
     }
 
-    this.title.setValue(this.item.title);
-    this.date.setValue(this.item.date);
-    this.image.setValue(this.item.image);
-    this.content.setValue(this.item.content);
+    const { title, date, image, content } = this.editItemForm.controls;
+
+    title.setValue(this.item.title);
+    date.setValue(this.item.date);
+    image.setValue(this.item.image);
+    content.setValue(this.item.content);
   }
 
   onSubmit(): void {
     if (!this.item) {
-      console.log('Item was not found')
+      this.showAlert('Item was not found', 'danger');
       return;
     }
 
-    const item: Item = {
-      id: this.id,
-      title: this.title.value,
-      date: this.date.value,
-      image: this.image.value,
-      content: this.content.value
-    };
+    if (!this.validateForm) {
+      this.showAlert('Please fill in all fields!', 'danger');
+      return;
+    }
 
-    this.store.dispatch(editItem(item));
+    const { title, date, image, content } = this.editItemForm.value;
+    const item: Item = { id: this.id, title, date, image, content };
+    
+    // return this.showAlert('Product editing function is disabled', 'danger');
 
-    this.showAlert('Product was successfully saved!', 'success');
+    if (this.showAlert('Product was successfully saved!', 'success')) {
+      this.store.dispatch(editItem(item));
+    }
   }
   
   onDelete(): void {
-    if (!confirm("Are you sure you want to delete this item?"))
-      return;
+    if (!confirm("Are you sure you want to delete this item?")) return;
 
-    this.store.dispatch(removeItem({ id: this.id }));
-    this.showAlert('Product was successfully deleted!', 'success');
-
-    setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 3000);
+    if(this.showAlert('Product was successfully deleted!', 'success', true)) {
+      this.store.dispatch(removeItem({ id: this.id }));
+    }
   }
 
-  showAlert(message: string, type: string): void {
-    this.alert = message;
+  validateForm(title: string, date: string, image: string, content: string): boolean {
+    return (!title || !date || !image || !content) ? false : true;
+  }
 
-    setTimeout(() => {
+  showAlert(message: string, type: string, redirect: boolean = false): boolean {
+    if (this.alertTimeout) return false;
+    
+    this.alert = message;
+    this.alertTimeout = setTimeout(() => {
       this.alert = '';
-    }, 3000);
+      this.alertTimeout = null;
+      if (redirect)
+        this.router.navigate(['/']);
+    }, 1500);
+    
+    return true;
   }
 
 }

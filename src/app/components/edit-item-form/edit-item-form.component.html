@@ -5,7 +5,7 @@
         </h2>
     </header>
     <p class="alert">{{ alert }}</p>
-    <form (submit)="$event.preventDefault(); onSubmit()" class="form-horizontal">
+    <form (submit)="$event.preventDefault(); onSubmit()" [formGroup]="editItemForm" class="form-horizontal">
         <div class="form-group">
             <label for="inputTitle" class="col-md-1 control-label">Title</label>
             <div class="col-md-5">
@@ -13,7 +13,7 @@
                     type="text"
                     name="title"
                     id="inputTitle"
-                    [formControl]="title"
+                    formControlName="title"
                     class="form-control"
                     placeholder="Title"
                     required
@@ -27,8 +27,7 @@
                     type="date"
                     name="date"
                     id="inputDate"
-                    [formControl]="date"
-                    [value]="date"
+                    formControlName="date"
                     class="form-control"
                     required
                 >
@@ -41,7 +40,7 @@
                     type="text"
                     name="image"
                     id="inputImage"
-                    [formControl]="image"
+                    formControlName="image"
                     class="form-control"
                     placeholder="Image URL"
                     required
@@ -56,7 +55,7 @@
                     id="inputContent"
                     cols="30"
                     rows="10"
-                    [formControl]="content"
+                    formControlName="content"
                     class="form-control"
                     placeholder="Content"
                     required

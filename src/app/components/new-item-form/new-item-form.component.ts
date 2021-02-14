@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { title } from 'process';
 import { addItem } from '../articles/articles.actions';
 
 @Component({
@@ -9,33 +11,53 @@ import { addItem } from '../articles/articles.actions';
   styleUrls: ['./new-item-form.component.scss']
 })
 export class NewItemFormComponent implements OnInit {
-  title = new FormControl('');
-  date = new FormControl('');
-  image = new FormControl('');
-  content = new FormControl('');
+  newItemForm = new FormGroup({
+    title: new FormControl(''),
+    date: new FormControl(''),
+    image: new FormControl(''),
+    content: new FormControl('')
+  });
 
-  constructor(private store: Store) { }
+  alert: string = '';
+  alertTimeout: object | number = null;
+
+  constructor(
+    private store: Store,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    if (!this.validateForm())
+    const { title, date, image, content } = this.newItemForm.value;
+    
+    if (!this.validateForm(title, date, image, content)) {
+      this.showAlert('Please fill in all fields!', 'danger');
       return;
+    }
 
-    this.store.dispatch(addItem({
-      id: 0,
-      title: this.title.value,
-      date: this.date.value,
-      image: this.image.value,
-      content: this.content.value
-    }));
+    this.store.dispatch(addItem({ id: 0, title, date, image, content }));
+
+    this.showAlert('Product was added successfully', 'success');
+    this.newItemForm.reset();
   }
 
-  validateForm(): boolean {
-    if (!this.title.value || !this.date.value || !this.image.value || !this.content.value)
-      return false;
+  validateForm(title: string, date: string, image: string, content: string): boolean {
+    return (!title || !date || !image || !content) ? false : true;
+  }
 
+  showAlert(message: string, type: string, redirect: boolean = false): boolean {
+    if (this.alertTimeout) return false;
+    
+    this.alert = message;
+    this.alertTimeout = setTimeout(() => {
+      this.alert = '';
+      this.alertTimeout = null;
+      if (redirect)
+        this.router.navigate(['/']);
+    }, 1500);
+    
     return true;
   }
 
