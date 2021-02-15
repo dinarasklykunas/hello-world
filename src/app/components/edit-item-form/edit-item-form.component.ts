@@ -74,13 +74,14 @@ export class EditItemFormComponent implements OnInit {
       this.showAlert('Item was not found', 'danger');
       return;
     }
+    
+    const { title, price, date, image, content, quantity } = this.editItemForm.value;
 
-    if (!this.validateForm) {
+    if (!this.validateForm(title, price, date, image, content, quantity)) {
       this.showAlert('Please fill in all fields!', 'danger');
       return;
     }
 
-    const { title, price, date, image, content, quantity } = this.editItemForm.value;
     const item: Item = { id: this.id, title, price, date, image, content, quantity };
     
     // return this.showAlert('Product editing function is disabled', 'danger');
@@ -98,8 +99,14 @@ export class EditItemFormComponent implements OnInit {
     }
   }
 
-  validateForm(title: string, date: string, image: string, content: string): boolean {
-    return (!title || !date || !image || !content) ? false : true;
+  validateForm(
+    title: string,
+    price: number,
+    date: string,
+    image: string,
+    content: string,
+    quantity: number): boolean {
+    return (!title || !price || !date || !image || !content || !quantity) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): boolean {

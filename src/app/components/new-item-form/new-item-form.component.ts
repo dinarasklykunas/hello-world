@@ -34,7 +34,7 @@ export class NewItemFormComponent implements OnInit {
   onSubmit(): void {
     const { title, price, date, image, content, quantity } = this.newItemForm.value;
     
-    if (!this.validateForm(title, price, date, image, content)) {
+    if (!this.validateForm(title, price, date, image, content, quantity)) {
       this.showAlert('Please fill in all fields!', 'danger');
       return;
     }
@@ -45,8 +45,14 @@ export class NewItemFormComponent implements OnInit {
     this.newItemForm.reset();
   }
 
-  validateForm(title: string, price: number, date: string, image: string, content: string): boolean {
-    return (!title || !date || !image || !content) ? false : true;
+  validateForm(
+    title: string,
+    price: number,
+    date: string,
+    image: string,
+    content: string,
+    quantity: number): boolean {
+    return (!title || !price || !date || !image || !content || !quantity) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): boolean {

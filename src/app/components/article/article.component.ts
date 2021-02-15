@@ -5,7 +5,7 @@ import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
 import { getItemsList } from '../articles/articles.selectors';
 import { addItem, editItem } from '../cart/cart.actions';
-import { getCartList } from '../cart/cart.selectors';
+import { getCartItemsList } from '../cart/cart.selectors';
 
 @Component({
   selector: 'app-article',
@@ -25,7 +25,7 @@ export class ArticleComponent implements OnInit {
   }
 
   getCartItems(): void {
-    this.cartItemsSubsrition = this.store.select(getCartList).subscribe(cartItems => {
+    this.cartItemsSubsrition = this.store.select(getCartItemsList).subscribe(cartItems => {
       this.itemsSubsrition = this.store.select(getItemsList).subscribe(items => {
         this.cartItems = [];
 

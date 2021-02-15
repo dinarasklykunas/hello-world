@@ -3,14 +3,14 @@ import { itemsReducer, ItemsState } from "../components/articles/articles.reduce
 import { cartReducer, CartState } from "../components/cart/cart.reducer";
 
 export interface RootState {
-    items: ItemsState,
+    storeItems: ItemsState,
     cartItems: CartState
 };
 
 export const appReducer: ActionReducerMap<RootState> = {
-    items: itemsReducer,
+    storeItems: itemsReducer,
     cartItems: cartReducer
 };
 
-export const getItemsState = createFeatureSelector<ItemsState>('items');
+export const getItemsState = createFeatureSelector<ItemsState>('storeItems');
 export const getCartState = createFeatureSelector<CartState>('cartItems');
