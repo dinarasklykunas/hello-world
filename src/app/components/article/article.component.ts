@@ -4,8 +4,7 @@ import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
 import { getItemsList } from '../articles/articles.selectors';
-import { addItem, editItem, removeItem } from '../cart/cart.actions';
-import { CartState } from '../cart/cart.reducer';
+import { addItem, editItem } from '../cart/cart.actions';
 import { getCartList } from '../cart/cart.selectors';
 
 @Component({
@@ -49,8 +48,6 @@ export class ArticleComponent implements OnInit {
       alert('Item cannot be added to your cart');
       return;
     }
-    
-    // this.store.dispatch(addItem({ id: this.item.id, count: 1 }));
 
     const found = this.cartItems.find(elem => elem.id === this.item.id)
 

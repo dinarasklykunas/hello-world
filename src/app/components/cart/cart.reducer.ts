@@ -2,16 +2,15 @@ import { createReducer, on } from "@ngrx/store";
 import { addItem, editItem, removeItem } from "./cart.actions";
 
 export interface CartState {
-    items: {id: number, count: number}[]
+    items: {
+        id: number,
+        itemId: number,
+        count: number
+    }[]
 };
 
 const initialState = {
-    items: [
-        {
-            id: 1,
-            count: 3
-        }
-    ]
+    items: []
 };
 
 export const cartReducer = createReducer(

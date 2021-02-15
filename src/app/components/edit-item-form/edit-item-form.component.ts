@@ -23,6 +23,7 @@ export class EditItemFormComponent implements OnInit {
 
   editItemForm = new FormGroup({
     title: new FormControl(),
+    price: new FormControl(),
     date: new FormControl(),
     image: new FormControl(),
     content: new FormControl(),
@@ -58,9 +59,10 @@ export class EditItemFormComponent implements OnInit {
       return;
     }
 
-    const { title, date, image, content, quantity } = this.editItemForm.controls;
+    const { title, price, date, image, content, quantity } = this.editItemForm.controls;
 
     title.setValue(this.item.title);
+    price.setValue(this.item.price);
     date.setValue(this.item.date);
     image.setValue(this.item.image);
     content.setValue(this.item.content);
@@ -78,8 +80,8 @@ export class EditItemFormComponent implements OnInit {
       return;
     }
 
-    const { title, date, image, content, quantity } = this.editItemForm.value;
-    const item: Item = { id: this.id, title, date, image, content, quantity };
+    const { title, price, date, image, content, quantity } = this.editItemForm.value;
+    const item: Item = { id: this.id, title, price, date, image, content, quantity };
     
     // return this.showAlert('Product editing function is disabled', 'danger');
 

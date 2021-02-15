@@ -13,6 +13,7 @@ import { addItem } from '../articles/articles.actions';
 export class NewItemFormComponent implements OnInit {
   newItemForm = new FormGroup({
     title: new FormControl(''),
+    price: new FormControl(''),
     date: new FormControl(''),
     image: new FormControl(''),
     content: new FormControl(''),
@@ -31,20 +32,20 @@ export class NewItemFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { title, date, image, content, quantity } = this.newItemForm.value;
+    const { title, price, date, image, content, quantity } = this.newItemForm.value;
     
-    if (!this.validateForm(title, date, image, content)) {
+    if (!this.validateForm(title, price, date, image, content)) {
       this.showAlert('Please fill in all fields!', 'danger');
       return;
     }
 
-    this.store.dispatch(addItem({ id: 0, title, date, image, content, quantity }));
+    this.store.dispatch(addItem({ id: 0, title, price, date, image, content, quantity }));
 
     this.showAlert('Product was added successfully', 'success');
     this.newItemForm.reset();
   }
 
-  validateForm(title: string, date: string, image: string, content: string): boolean {
+  validateForm(title: string, price: number, date: string, image: string, content: string): boolean {
     return (!title || !date || !image || !content) ? false : true;
   }
 
