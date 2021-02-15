@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import '@angular/common/locales/global/lt';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -52,7 +53,10 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
       maxAge: 10,
     })
   ],
-  providers: [],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: 'lt'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,9 @@
             Title: {{ item.title }}
         </p>
         <p>
+            Price: {{ item.price | currency : 'EUR' }}
+        </p>
+        <p>
             Content: {{ item.content }}
         </p>
         <p>
