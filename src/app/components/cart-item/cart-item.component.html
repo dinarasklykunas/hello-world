@@ -1,0 +1,15 @@
+<section class="d-flex align-items-center">
+    <img [src]="item.image" [alt]="item.title" width="100">
+    <div>
+        <p>
+            Title: {{ item.title }}
+        </p>
+        <p>
+            Content: {{ item.content }}
+        </p>
+        <p>
+            Count: <input type="number" min="1" step="1" [value]="itemReference.count" (change)="updateItemCount($event)">
+            <button (click)="removeItemFromCart()" class="btn btn-danger">Remove</button>
+        </p>
+    </div>
+</section>

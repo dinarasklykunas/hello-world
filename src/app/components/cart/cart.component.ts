@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
 import { getItemsList } from '../articles/articles.selectors';
 import { removeItem } from './cart.actions';
-import { getCartList } from './cart.selectors';
+import { getCartList as getCartItemsList } from './cart.selectors';
 
 @Component({
   selector: 'app-cart',
@@ -12,39 +13,33 @@ import { getCartList } from './cart.selectors';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  itemsSubsrition: Subscription;
-  cartItemsSubsrition: Subscription;
-  cartItems: Item[] = [];
+  cartItems$: Observable<CartItem[]>;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.getCartItems();
+    this.cartItems$ = this.store.select(getCartItemsList);
+    // this.getCartItems();
   }
   
-  getCartItems(): void {
-    this.cartItemsSubsrition = this.store.select(getCartList).subscribe(cartItems => {
-      this.itemsSubsrition = this.store.select(getItemsList).subscribe(items => {
-        this.cartItems = [];
-        cartItems.forEach(cartItem => {
-          const item = items.find(elem => elem.id === cartItem.id && elem.quantity > 0);
+  // getCartItems(): void {
+  //   this.cartItemsSubsrition = this.store.select(getCartList).subscribe(cartItems => {
+  //     this.itemsSubscription = this.store.select(getItemsList).subscribe(items => {
+  //       this.cartItems = [];
+  //       cartItems.forEach(cartItem => {
+  //         const item = items.find(elem => elem.id === cartItem.id && elem.quantity > 0);
   
-          if (item && !this.cartItems.includes(item)) {
-            const newItem = { ...item, count: cartItem.count };
-            this.cartItems.push(newItem);
-          }
-        })
-      });
-    });
-  }
+  //         if (item && !this.cartItems.includes(item)) {
+  //           const newItem = { ...item, count: cartItem.count };
+  //           this.cartItems.push(newItem);
+  //         }
+  //       })
+  //     });
+  //   });
+  // }
 
   removeItem(id: number) {
     this.store.dispatch(removeItem({ id }));
-  }
-
-  ngOnDestroy(): void {
-    this.cartItemsSubsrition.unsubscribe();
-    this.itemsSubsrition.unsubscribe();
   }
 
 }

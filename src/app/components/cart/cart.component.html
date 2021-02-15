@@ -2,18 +2,9 @@
     <header>
         <h2>Cart</h2>
     </header>
-    <div *ngIf="cartItems.length === 0">
-        <p>
-            Your cart is empty! Go to <a routerLink="/">homepage</a> or <a routerLink="/products">products</a> and add products to cart.
-        </p>
+    <div *ngIf="(cartItems$ | async).length > 0; else elseBlock">
+        <app-cart-item *ngFor="let cartItem of cartItems$ | async" [itemReference]="cartItem"></app-cart-item>
     </div>
-    <div *ngFor="let item of cartItems" class="d-flex align-items-center">
-        <img [src]="item.image" [alt]="item.title" width="200">
-        <div>
-            <p>Title: {{ item.title }} </p>
-            <p>Content: {{ item.content }} </p>
-            <p>Count: <input type="number" min="0" step="0" [value]="item.count"></p>
-        </div>
-        <button (click)="removeItem(item.id)" class="btn">Remove</button>
-    </div>
+    <ng-template #elseBlock>Your cart is empty! Go to <a routerLink="/">homepage</a> or <a routerLink="/products">products</a>
+    and add something to cart!</ng-template>
 </section>
