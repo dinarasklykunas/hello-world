@@ -15,7 +15,8 @@ export class NewItemFormComponent implements OnInit {
     title: new FormControl(''),
     date: new FormControl(''),
     image: new FormControl(''),
-    content: new FormControl('')
+    content: new FormControl(''),
+    quantity: new FormControl('')
   });
 
   alert: string = '';
@@ -30,14 +31,14 @@ export class NewItemFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { title, date, image, content } = this.newItemForm.value;
+    const { title, date, image, content, quantity } = this.newItemForm.value;
     
     if (!this.validateForm(title, date, image, content)) {
       this.showAlert('Please fill in all fields!', 'danger');
       return;
     }
 
-    this.store.dispatch(addItem({ id: 0, title, date, image, content }));
+    this.store.dispatch(addItem({ id: 0, title, date, image, content, quantity }));
 
     this.showAlert('Product was added successfully', 'success');
     this.newItemForm.reset();

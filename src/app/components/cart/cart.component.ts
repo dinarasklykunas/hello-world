@@ -19,15 +19,15 @@ export class CartComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.getItems();
+    this.getCartItems();
   }
   
-  getItems(): void {
+  getCartItems(): void {
     this.cartItemsSubsrition = this.store.select(getCartList).subscribe(cartItems => {
       this.itemsSubsrition = this.store.select(getItemsList).subscribe(items => {
         this.cartItems = [];
         cartItems.forEach(cartItem => {
-          const item = items.find(elem => elem.id === cartItem.id);
+          const item = items.find(elem => elem.id === cartItem.id && elem.quantity > 0);
   
           if (item && !this.cartItems.includes(item)) {
             const newItem = { ...item, count: cartItem.count };

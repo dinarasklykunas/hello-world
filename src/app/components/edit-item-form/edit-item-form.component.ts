@@ -25,7 +25,8 @@ export class EditItemFormComponent implements OnInit {
     title: new FormControl(),
     date: new FormControl(),
     image: new FormControl(),
-    content: new FormControl()
+    content: new FormControl(),
+    quantity: new FormControl()
   });
 
   alertTimeout: object | number = null;
@@ -57,12 +58,13 @@ export class EditItemFormComponent implements OnInit {
       return;
     }
 
-    const { title, date, image, content } = this.editItemForm.controls;
+    const { title, date, image, content, quantity } = this.editItemForm.controls;
 
     title.setValue(this.item.title);
     date.setValue(this.item.date);
     image.setValue(this.item.image);
     content.setValue(this.item.content);
+    quantity.setValue(this.item.quantity);
   }
 
   onSubmit(): void {
@@ -76,8 +78,8 @@ export class EditItemFormComponent implements OnInit {
       return;
     }
 
-    const { title, date, image, content } = this.editItemForm.value;
-    const item: Item = { id: this.id, title, date, image, content };
+    const { title, date, image, content, quantity } = this.editItemForm.value;
+    const item: Item = { id: this.id, title, date, image, content, quantity };
     
     // return this.showAlert('Product editing function is disabled', 'danger');
 

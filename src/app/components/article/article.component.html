@@ -3,6 +3,7 @@
         <img src="{{ item.image }}" alt="{{ item.title }}">
         <h4>{{ item.title }}</h4>
         <p>{{ item.content }}</p>
+        <small>Quantity: {{ item.quantity }}</small>
     </a>
-    <button (click)="addToCart(item.id)" class="btn btn-primary">Add to cart</button>
+    <button (click)="addToCart()" class="btn btn-primary">Add to cart</button>
 </article>
