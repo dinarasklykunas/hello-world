@@ -77,7 +77,7 @@ export class EditItemFormComponent implements OnInit {
     
     const { title, price, date, image, content, quantity } = this.editItemForm.value;
 
-    if (!this.validateForm(title, price, date, image, content, quantity)) {
+    if (!this.validateForm(title, price, date, image, quantity)) {
       this.showAlert('Please fill in all fields!', 'danger');
       return;
     }
@@ -104,9 +104,8 @@ export class EditItemFormComponent implements OnInit {
     price: number,
     date: string,
     image: string,
-    content: string,
-    quantity: number): boolean {
-    return (!title || !price || !date || !image || !content || !quantity) ? false : true;
+    content: string): boolean {
+    return (!title || !price || !date || !image || !content) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): boolean {

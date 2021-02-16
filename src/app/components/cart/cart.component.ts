@@ -13,16 +13,18 @@ import { getCartItemsList as getCartItemsList } from './cart.selectors';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cartItems$: Observable<CartItem[]>;
+  cartItems: CartItem[];
+  cartItemsSubsription: Subscription = null;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.cartItems$ = this.store.select(getCartItemsList);
+    this.cartItemsSubsription = this.store.select(getCartItemsList)
+      .subscribe(items => this.cartItems = items);
   }
 
-  removeItem(id: number) {
-    this.store.dispatch(removeItem({ id }));
+  onOnDestroy(): void {
+    this.cartItemsSubsription.unsubscribe();
   }
 
 }

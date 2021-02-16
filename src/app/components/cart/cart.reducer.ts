@@ -1,30 +1,31 @@
+import { state } from "@angular/animations";
 import { createReducer, on } from "@ngrx/store";
-import { addItem, editItem, removeItem } from "./cart.actions";
+import { Item } from "src/app/models/Item";
+import * as fromCart from "./cart.actions";
 
 export interface CartState {
     items: {
         id: number,
-        itemId: number,
         count: number
     }[]
 };
 
 const initialState = {
-    items: []
+    items: JSON.parse(localStorage.getItem('cartItemsList')) || []
 };
 
 export const cartReducer = createReducer(
     initialState,
-    on(addItem, (state, props) => ({
+    on(fromCart.addItem, (state, props) => ({
         ...state,
-        items: [...state.items, props]
+        items: [...state.items, props],
     })),
-    on(removeItem, (state, props) => ({
+    on(fromCart.removeItem, (state, props) => ({
         ...state,
-        items: state.items.filter(item => item.id !== props.id)
+        items: state.items.filter((item: Item) => item.id !== props.id)
     })),
-    on(editItem, (state, props) => ({
+    on(fromCart.editItem, (state, props) => ({
         ...state,
-        items: state.items.map(item => item.id === props.id ? props : item)
+        items: state.items.map((item: Item) => item.id === props.id ? props : item)
     }))
 );

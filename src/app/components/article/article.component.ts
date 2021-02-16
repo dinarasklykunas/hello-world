@@ -14,8 +14,8 @@ import { getCartItemsList } from '../cart/cart.selectors';
 })
 export class ArticleComponent implements OnInit {
   @Input() item: Item = Input();
-  itemsSubsrition: Subscription;
-  cartItemsSubsrition: Subscription;
+  itemsSubscription: Subscription;
+  cartItemsSubscription: Subscription;
   cartItems: CartItem[] = [];
 
   constructor(private store: Store) { }
@@ -24,9 +24,14 @@ export class ArticleComponent implements OnInit {
     this.getCartItems();
   }
 
+  ngOnDestroy(): void {
+    this.cartItemsSubscription.unsubscribe();
+    this.itemsSubscription.unsubscribe();
+  }
+
   getCartItems(): void {
-    this.cartItemsSubsrition = this.store.select(getCartItemsList).subscribe(cartItems => {
-      this.itemsSubsrition = this.store.select(getItemsList).subscribe(items => {
+    this.cartItemsSubscription = this.store.select(getCartItemsList).subscribe(cartItems => {
+      this.itemsSubscription = this.store.select(getItemsList).subscribe(items => {
         this.cartItems = [];
 
         cartItems.forEach(cartItem => {
@@ -57,13 +62,9 @@ export class ArticleComponent implements OnInit {
       this.store.dispatch(addItem({ id: this.item.id, count: 1 }));
     }
     
+    localStorage.setItem('cartItemsList', JSON.stringify(this.cartItems));
     alert('Product was succesfully added to cart!');
     this.getCartItems();
-  }
-
-  ngOnDestroy(): void {
-    this.cartItemsSubsrition.unsubscribe();
-    this.itemsSubsrition.unsubscribe();
   }
 
 }
