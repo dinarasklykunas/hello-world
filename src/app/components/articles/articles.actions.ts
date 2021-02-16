@@ -1,6 +1,11 @@
 import { createAction, props } from "@ngrx/store";
 import { Item } from "src/app/models/Item";
 
+export const setItems = createAction(
+    '[Item] Set Items',
+    props<{ items: Item[] }>()
+);
+
 export const addItem = createAction(
     '[Item] Insert New Item',
     props<Item>()

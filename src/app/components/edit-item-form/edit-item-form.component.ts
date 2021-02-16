@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Item } from 'src/app/models/Item';
 import { editItem, removeItem } from '../articles/articles.actions';
 import { getItemsList } from '../articles/articles.selectors';
+import { ArticlesService } from '../articles/articles.service';
 
 @Component({
   selector: 'app-edit-item-form',
@@ -35,7 +36,8 @@ export class EditItemFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private itemsService: ArticlesService
   ) { }
 
   ngOnInit(): void {
@@ -85,6 +87,8 @@ export class EditItemFormComponent implements OnInit {
     const item: Item = { id: this.id, title, price, date, image, content, quantity };
     
     // return this.showAlert('Product editing function is disabled', 'danger');
+
+
 
     if (this.showAlert('Product was successfully saved!', 'success')) {
       this.store.dispatch(editItem(item));

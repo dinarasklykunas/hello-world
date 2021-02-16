@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
+import * as fromArticles from '../articles/articles.actions';
 import { getItemsList } from '../articles/articles.selectors';
+import { ArticlesService } from '../articles/articles.service';
 import { editItem, removeItem } from '../cart/cart.actions';
-import { getCartItemsList } from '../cart/cart.selectors';
+import * as fromCart from '../cart/cart.selectors';
 
 @Component({
   selector: 'app-cart-item',
@@ -20,7 +23,11 @@ export class CartItemComponent implements OnInit {
   storeItemsSubscription: Subscription = null;
   cartItemsSubscription: Subscription = null;
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private itemsService: ArticlesService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getStoreItems();
@@ -39,12 +46,12 @@ export class CartItemComponent implements OnInit {
   }
 
   getCartItems(): void {
-    this.cartItemsSubscription = this.store.select(getCartItemsList)
+    this.cartItemsSubscription = this.store.select(fromCart.getCartItemsList)
       .subscribe(items => this.cartItems = items);
   }
 
   getItem(): void {
-     this.item = this.storeItems.find(item => item.id === this.itemReference.id);
+    this.item = this.storeItems.find(item => item.id === this.itemReference.id);
   }
 
   updateItemCount($event: any): void {
