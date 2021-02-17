@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('user');
   }
 
-  onSubmit($event: Event): void {
-    $event.preventDefault();
+  onSubmit(): void {
+    // $event.preventDefault();
 
     const { username, password } = this.loginForm.value;
 
@@ -51,7 +51,8 @@ export class LoginComponent implements OnInit {
       if (user) {
         this.store.dispatch(fromLogin.loginUser({ user }));
         localStorage.setItem('user', JSON.stringify(user));
-        this.router.navigate(['/']);
+        
+        this.showAlert('You\'ve been successfully logged in!', 'success', true)
       } else {
         this.showAlert('User was not found!', 'danger');
       }

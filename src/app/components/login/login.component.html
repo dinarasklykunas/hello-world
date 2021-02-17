@@ -10,7 +10,7 @@
         [class.alert-danger]="alertType === 'danger'"
         [class.alert-success]="alertType === 'success'"
     >{{ alert }}</p>
-    <form (submit)="onSubmit($event)" [formGroup]="loginForm" class="form-horizontal">
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="form-horizontal">
         <div class="form-group">
             <label for="username" class="col-md-1 control-label">Username</label>
             <div class="col-md-5">

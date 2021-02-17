@@ -33,13 +33,13 @@
       "id": 2
     },
     {
+      "id": 3,
       "title": "Arduino Nano",
       "price": 9.99,
       "date": "2021-02-17",
       "image": "https://images-na.ssl-images-amazon.com/images/I/71%2BvvX%2BVCWL._AC_SX450_.jpg",
       "content": "",
-      "quantity": 10,
-      "id": 3
+      "quantity": 10
     }
   ]
 }

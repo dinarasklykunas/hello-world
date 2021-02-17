@@ -20,6 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducer } from './_store';
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
     ArticleComponent,
     LoginComponent,
     CartComponent,
-    CartItemComponent
+    CartItemComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
