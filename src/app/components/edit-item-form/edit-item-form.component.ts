@@ -106,8 +106,8 @@ export class EditItemFormComponent implements OnInit {
     price: number,
     date: string,
     image: string,
-    quantity: string): boolean {
-    return (!title || !price || !date || !image || !quantity) ? false : true;
+    quantity: number): boolean {
+    return (!title || !price || !date || !image || quantity == null) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): void {
