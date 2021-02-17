@@ -6,14 +6,15 @@ import { NewItemFormComponent } from './components/new-item-form/new-item-form.c
 import { LoginComponent } from './components/login/login.component';
 import { CartComponent } from './components/cart/cart.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { GuardsGuard } from './guards.guard';
+import { AdminGuard } from './auth/admin.guard';
+import { UserGuard } from './auth/user.guard';
 
 const routes: Routes = [
-  { path: '', component: ArticlesComponent },
-  { path: 'edit-item/:id', component: EditItemFormComponent, canActivate: [GuardsGuard] },
-  { path: 'new-item', component: NewItemFormComponent, canActivate: [GuardsGuard] },
+  { path: '', component: ArticlesComponent, canActivate: [UserGuard] },
+  { path: 'edit-item/:id', component: EditItemFormComponent, canActivate: [AdminGuard] },
+  { path: 'new-item', component: NewItemFormComponent, canActivate: [AdminGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'cart', component: CartComponent },
+  { path: 'cart', component: CartComponent, canActivate: [UserGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 
