@@ -57,7 +57,7 @@ export class NewItemFormComponent implements OnInit {
     date: string,
     image: string,
     quantity: number): boolean {
-    return (!title || !price || !date || !image || quantity == null) ? false : true;
+    return (!title || !price || !date || !image || quantity == null || quantity < 0) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): void {

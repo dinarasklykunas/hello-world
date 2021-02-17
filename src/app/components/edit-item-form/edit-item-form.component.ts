@@ -1,3 +1,4 @@
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -107,7 +108,7 @@ export class EditItemFormComponent implements OnInit {
     date: string,
     image: string,
     quantity: number): boolean {
-    return (!title || !price || !date || !image || quantity == null) ? false : true;
+    return (!title || !price || !date || !image || quantity == null || quantity < 0) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): void {
