@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Item } from 'src/app/models/Item';
-import { editItem, removeItem } from '../articles/articles.actions';
+import { editItem, removeItem, setItems } from '../articles/articles.actions';
 import { getItemsList } from '../articles/articles.selectors';
 import { ArticlesService } from '../articles/articles.service';
 
@@ -16,10 +16,11 @@ import { ArticlesService } from '../articles/articles.service';
 export class EditItemFormComponent implements OnInit {
   id: number = 0;
   alert: string = '';
+  alertType: string = '';
 
   storeSubsription: Subscription = null;
 
-  items: Item[] = Array<Item>();
+  items: Item[] = [];
   item: Item = null;
 
   editItemForm = new FormGroup({
@@ -42,38 +43,37 @@ export class EditItemFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.storeSubsription = this.store.select(getItemsList).subscribe(items => this.items = items);
-    this.findItem();
     this.prefillForm();
   }
 
   ngOnDestroy(): void {
-    this.storeSubsription.unsubscribe();
-  }
-
-  findItem() {
-    this.item = this.items.find(item => item.id === this.id);
+    // this.storeSubsription.unsubscribe();
   }
 
   prefillForm(): void {
-    if (!this.item) {
-      console.log('Product was not found')
-      return;
-    }
-
-    const { title, price, date, image, content, quantity } = this.editItemForm.controls;
-
-    title.setValue(this.item.title);
-    price.setValue(this.item.price);
-    date.setValue(this.item.date);
-    image.setValue(this.item.image);
-    content.setValue(this.item.content);
-    quantity.setValue(this.item.quantity);
+    this.itemsService.getItems().subscribe(items => {
+      this.store.dispatch(setItems({ items }));
+      this.item = items.find(item => item.id === this.id);
+      
+      if (!this.item) {
+        this.showAlert('Product was not found', 'danger');
+        return;
+      }
+  
+      const { title, price, date, image, content, quantity } = this.editItemForm.controls;
+  
+      title.setValue(this.item.title);
+      price.setValue(this.item.price);
+      date.setValue(this.item.date);
+      image.setValue(this.item.image);
+      content.setValue(this.item.content);
+      quantity.setValue(this.item.quantity);
+    });
   }
 
   onSubmit(): void {
     if (!this.item) {
-      this.showAlert('Item was not found', 'danger');
+      this.showAlert('Product was not found', 'danger');
       return;
     }
     
@@ -88,19 +88,17 @@ export class EditItemFormComponent implements OnInit {
     
     // return this.showAlert('Product editing function is disabled', 'danger');
 
-
-
-    if (this.showAlert('Product was successfully saved!', 'success')) {
-      this.store.dispatch(editItem(item));
-    }
+    this.itemsService.editItem(item).subscribe();
+    // this.store.dispatch(editItem(item));
+    this.showAlert('Product was successfully saved!', 'success');
   }
   
   onDelete(): void {
     if (!confirm("Are you sure you want to delete this item?")) return;
 
-    if(this.showAlert('Product was successfully deleted!', 'success', true)) {
-      this.store.dispatch(removeItem({ id: this.id }));
-    }
+    this.itemsService.deleteItem(this.item).subscribe();
+    // this.store.dispatch(removeItem({ id: this.id }));
+    this.showAlert('Product was successfully deleted!', 'success', true);
   }
 
   validateForm(
@@ -112,18 +110,16 @@ export class EditItemFormComponent implements OnInit {
     return (!title || !price || !date || !image || !content) ? false : true;
   }
 
-  showAlert(message: string, type: string, redirect: boolean = false): boolean {
-    if (this.alertTimeout) return false;
-    
-    this.alert = message;
-    this.alertTimeout = setTimeout(() => {
-      this.alert = '';
-      this.alertTimeout = null;
-      if (redirect)
-        this.router.navigate(['/']);
-    }, 1500);
-    
-    return true;
-  }
+  showAlert(message: string, type: string, redirect: boolean = false): void {
+  this.alert = message;
+  this.alertType = type;
+  this.alertTimeout = setTimeout(() => {
+    this.alert = '';
+    this.alertType = '';
+    this.alertTimeout = null;
+    if (redirect)
+      this.router.navigate(['/']);
+  }, 2000);
+}
 
 }

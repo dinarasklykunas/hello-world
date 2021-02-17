@@ -4,11 +4,16 @@
             Create New Item
         </h2>
     </header>
-    <p class="alert">{{ alert }}</p>
+    <p
+        class="alert"
+        [class.hidden]="!alert"
+        [class.alert-danger]="alertType === 'danger'"
+        [class.alert-success]="alertType === 'success'"
+    >{{ alert }}</p>
     <!-- <form (submit)="$event.preventDefault(); onSubmit()" [formGroup]="newItemForm" class="form-horizontal"> -->
     <form (ngSubmit)="onSubmit()" [formGroup]="newItemForm" class="form-horizontal">
         <div class="form-group">
-            <label for="inputTitle" class="col-md-1 control-label">Title</label>
+            <label for="inputTitle" class="col-md-1 control-label">Title*</label>
             <div class="col-md-5">
                 <input
                     type="text"
@@ -22,7 +27,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPrice" class="col-md-1 control-label">Price</label>
+            <label for="inputPrice" class="col-md-1 control-label">Price*</label>
             <div class="col-md-5">
                 <input
                     type="number"
@@ -38,7 +43,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputDate" class="col-md-1 control-label">Date</label>
+            <label for="inputDate" class="col-md-1 control-label">Date*</label>
             <div class="col-md-5">
                 <input
                     type="date"
@@ -51,7 +56,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputImage" class="col-md-1 control-label">Image URL</label>
+            <label for="inputImage" class="col-md-1 control-label">Image URL*</label>
             <div class="col-md-5">
                 <input
                     type="text"
@@ -80,7 +85,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputQuantity" class="col-md-1 control-label">Quantity</label>
+            <label for="inputQuantity" class="col-md-1 control-label">Quantity*</label>
             <div class="col-md-5">
                 <input
                     type="number"

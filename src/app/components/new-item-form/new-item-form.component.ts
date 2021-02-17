@@ -3,7 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { title } from 'process';
+import { Item } from 'src/app/models/Item';
 import { addItem } from '../articles/articles.actions';
+import { ArticlesService } from '../articles/articles.service';
 
 @Component({
   selector: 'app-new-item-form',
@@ -21,11 +23,13 @@ export class NewItemFormComponent implements OnInit {
   });
 
   alert: string = '';
+  alertType: string = '';
   alertTimeout: object | number = null;
 
   constructor(
     private store: Store,
-    private router: Router
+    private router: Router,
+    private itemsService: ArticlesService
   ) { }
 
   ngOnInit(): void {
@@ -34,13 +38,15 @@ export class NewItemFormComponent implements OnInit {
   onSubmit(): void {
     const { title, price, date, image, content, quantity } = this.newItemForm.value;
     
-    if (!this.validateForm(title, price, date, image, content)) {
+    if (!this.validateForm(title, price, date, image)) {
       this.showAlert('Please fill in all fields!', 'danger');
       return;
     }
 
-    this.store.dispatch(addItem({ id: 0, title, price, date, image, content, quantity }));
+    const item: Item = { title, price, date, image, content, quantity };
 
+    this.itemsService.createItem(item).subscribe();
+    // this.store.dispatch(addItem({ id: 0, title, price, date, image, content, quantity }));
     this.showAlert('Product was added successfully', 'success');
     this.newItemForm.reset();
   }
@@ -49,21 +55,22 @@ export class NewItemFormComponent implements OnInit {
     title: string,
     price: number,
     date: string,
-    image: string,
-    content: string): boolean {
-    return (!title || !price || !date || !image || !content) ? false : true;
+    image: string): boolean {
+    return (!title || !price || !date || !image) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): boolean {
     if (this.alertTimeout) return false;
     
     this.alert = message;
+    this.alertType = type;
     this.alertTimeout = setTimeout(() => {
       this.alert = '';
+      this.alertType = '';
       this.alertTimeout = null;
       if (redirect)
         this.router.navigate(['/']);
-    }, 1500);
+    }, 2000);
     
     return true;
   }
