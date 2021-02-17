@@ -59,9 +59,7 @@ export class NewItemFormComponent implements OnInit {
     return (!title || !price || !date || !image) ? false : true;
   }
 
-  showAlert(message: string, type: string, redirect: boolean = false): boolean {
-    if (this.alertTimeout) return false;
-    
+  showAlert(message: string, type: string, redirect: boolean = false): void {
     this.alert = message;
     this.alertType = type;
     this.alertTimeout = setTimeout(() => {
@@ -71,8 +69,6 @@ export class NewItemFormComponent implements OnInit {
       if (redirect)
         this.router.navigate(['/']);
     }, 2000);
-    
-    return true;
   }
 
 }

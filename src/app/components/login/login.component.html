@@ -4,8 +4,13 @@
             Login
         </h2>
     </header>
-    <p id="alert" class="alert hidden"></p>
-    <form (submit)="onSubmit($event)" class="form-horizontal">
+    <p
+        class="alert"
+        [class.hidden]="!alert"
+        [class.alert-danger]="alertType === 'danger'"
+        [class.alert-success]="alertType === 'success'"
+    >{{ alert }}</p>
+    <form (submit)="onSubmit($event)" [formGroup]="loginForm" class="form-horizontal">
         <div class="form-group">
             <label for="username" class="col-md-1 control-label">Username</label>
             <div class="col-md-5">
@@ -13,7 +18,7 @@
                     type="text"
                     name="username"
                     id="username"
-                    [formControl]="username"
+                    formControlName="username"
                     class="form-control"
                     placeholder="Username"
                 >
@@ -26,7 +31,7 @@
                     type="password"
                     name="password"
                     id="password"
-                    [formControl]="password"
+                    formControlName="password"
                     class="form-control"
                     placeholder="Password"
                 >

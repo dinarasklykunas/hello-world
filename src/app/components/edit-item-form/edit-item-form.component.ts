@@ -47,11 +47,11 @@ export class EditItemFormComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // this.storeSubsription.unsubscribe();
+    this.storeSubsription.unsubscribe();
   }
 
   prefillForm(): void {
-    this.itemsService.getItems().subscribe(items => {
+    this.storeSubsription = this.itemsService.getItems().subscribe(items => {
       this.store.dispatch(setItems({ items }));
       this.item = items.find(item => item.id === this.id);
       
@@ -106,8 +106,8 @@ export class EditItemFormComponent implements OnInit {
     price: number,
     date: string,
     image: string,
-    content: string): boolean {
-    return (!title || !price || !date || !image || !content) ? false : true;
+    quantity: string): boolean {
+    return (!title || !price || !date || !image || !quantity) ? false : true;
   }
 
   showAlert(message: string, type: string, redirect: boolean = false): void {
