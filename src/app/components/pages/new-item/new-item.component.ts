@@ -8,11 +8,11 @@ import { addItem } from '../articles/articles.actions';
 import { ArticlesService } from '../articles/articles.service';
 
 @Component({
-  selector: 'app-new-item-form',
-  templateUrl: './new-item-form.component.html',
-  styleUrls: ['./new-item-form.component.scss']
+  selector: 'app-new-item',
+  templateUrl: './new-item.component.html',
+  styleUrls: ['./new-item.component.scss']
 })
-export class NewItemFormComponent implements OnInit {
+export class NewItemComponent implements OnInit {
   newItemForm = new FormGroup({
     title: new FormControl(''),
     price: new FormControl(''),

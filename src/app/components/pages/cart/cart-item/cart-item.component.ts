@@ -3,10 +3,10 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
-import * as fromArticles from '../articles/articles.actions';
-import { ArticlesService } from '../articles/articles.service';
-import { editItem, removeItem } from '../cart/cart.actions';
-import * as fromCart from '../cart/cart.selectors';
+import * as fromArticles from '../../articles/articles.actions';
+import { ArticlesService } from '../../articles/articles.service';
+import { editItem, removeItem } from '../cart.actions';
+import * as fromCart from '../cart.selectors';
 
 @Component({
   selector: 'app-cart-item',

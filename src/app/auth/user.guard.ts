@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getUser } from '../components/login/login.selectors';
+import { getUser } from '../components/pages/login/login.selectors';
 
 @Injectable({
   providedIn: 'root'

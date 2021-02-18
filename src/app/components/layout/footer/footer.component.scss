@@ -1,5 +1,5 @@
-@import '../../../assets/scss/base/colors';
-@import '../../../assets/scss/base/mixins';
+@import '/src/assets/scss/base/colors';
+@import '/src/assets/scss/base/mixins';
 
 .footer {
     @include set-background(darken($light-color, 30%));

@@ -14,4 +14,8 @@ export class LoginService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersURL);
   }
+
+  getUser(username: string, password: string): Observable<User> {
+    return this.http.get<User>(this.usersURL);
+  }
 }

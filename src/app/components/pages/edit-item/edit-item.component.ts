@@ -10,11 +10,12 @@ import { getItemsList } from '../articles/articles.selectors';
 import { ArticlesService } from '../articles/articles.service';
 
 @Component({
-  selector: 'app-edit-item-form',
-  templateUrl: './edit-item-form.component.html',
-  styleUrls: ['./edit-item-form.component.scss']
+  selector: 'app-edit-item',
+  templateUrl: './edit-item.component.html',
+  styleUrls: ['./edit-item.component.scss']
 })
-export class EditItemFormComponent implements OnInit {
+export class EditItemComponent implements OnInit {
+  // -------------------------------------------------- SUTVARKYTI ! --------------------------------------------------------------
   id: number = 0;
   alert: string = '';
   alertType: string = '';

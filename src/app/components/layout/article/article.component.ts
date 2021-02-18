@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
-import { getItemsList } from '../articles/articles.selectors';
-import { addItem, editItem } from '../cart/cart.actions';
-import { getCartItemsList } from '../cart/cart.selectors';
+import { getItemsList } from '../../pages/articles/articles.selectors';
+import { addItem, editItem } from '../../pages/cart/cart.actions';
+import { getCartItemsList } from '../../pages/cart/cart.selectors';
 
 @Component({
   selector: 'app-article',

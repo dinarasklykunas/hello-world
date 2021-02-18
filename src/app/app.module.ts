@@ -6,21 +6,21 @@ import { StoreModule } from '@ngrx/store';
 import '@angular/common/locales/global/lt';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { NavComponent } from './components/nav/nav.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
-import { ArticlesComponent } from './components/articles/articles.component';
-import { NewItemFormComponent } from './components/new-item-form/new-item-form.component';
-import { EditItemFormComponent } from './components/edit-item-form/edit-item-form.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { NavComponent } from './components/layout/nav/nav.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { CarouselComponent } from './components/layout/carousel/carousel.component';
+import { ArticlesComponent } from './components/pages/articles/articles.component';
+import { NewItemComponent } from './components/pages/new-item/new-item.component';
+import { EditItemComponent } from './components/pages/edit-item/edit-item.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ArticleComponent } from './components/article/article.component';
-import { LoginComponent } from './components/login/login.component';
+import { ArticleComponent } from './components/layout/article/article.component';
+import { LoginComponent } from './components/pages/login/login.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducer } from './_store';
-import { CartComponent } from './components/cart/cart.component';
-import { CartItemComponent } from './components/cart-item/cart-item.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { CartComponent } from './components/pages/cart/cart.component';
+import { CartItemComponent } from './components/pages/cart/cart-item/cart-item.component';
+import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +30,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     FooterComponent,
     CarouselComponent,
     ArticlesComponent,
-    NewItemFormComponent,
-    EditItemFormComponent,
+    NewItemComponent,
+    EditItemComponent,
     ArticleComponent,
     LoginComponent,
     CartComponent,

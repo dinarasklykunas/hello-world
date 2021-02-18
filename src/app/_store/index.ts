@@ -1,7 +1,7 @@
 import { ActionReducerMap, createFeatureSelector } from "@ngrx/store";
-import { itemsReducer, ItemsState } from "../components/articles/articles.reducer";
-import { cartReducer, CartState } from "../components/cart/cart.reducer";
-import { loginReducer, LoginState } from "../components/login/login.reducer";
+import { itemsReducer, ItemsState } from "../components/pages/articles/articles.reducer";
+import { cartReducer, CartState } from "../components/pages/cart/cart.reducer";
+import { loginReducer, LoginState } from "../components/pages/login/login.reducer";
 
 export interface RootState {
     storeItems: ItemsState,
