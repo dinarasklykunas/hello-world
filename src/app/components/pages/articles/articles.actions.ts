@@ -14,6 +14,20 @@ export const ItemsLoadedError = createAction(
     '[Items] Items Loaded Error'
 );
 
+export const loadItem = createAction(
+    '[Items] Load Item',
+    props<{ id: number }>()
+);
+
+export const itemLoadedSuccess = createAction(
+    '[Items] Item Loaded Success',
+    props<Item>()
+);
+
+export const ItemLoadedError = createAction(
+    '[Items] Item Loaded Error'
+);
+
 export const createItem = createAction(
     '[Items] Insert New Item',
     props<Item>()

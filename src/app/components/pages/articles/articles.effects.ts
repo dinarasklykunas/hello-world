@@ -20,6 +20,21 @@ export class ArticlesEffects {
         ))
     ));
 
+    // itemsLoadedSuccess$ = createEffect(() => this.actions$.pipe(
+    //     ofType(articlesActions.itemsLoadedSuccess),
+    //     mergeMap(() => this.articlesService.getItems().pipe(
+    //         map(items => articlesActions.itemsLoadedSuccess({ items }))
+    //     ))
+    // ));
+
+    loadItem$ = createEffect(() => this.actions$.pipe(
+        ofType(articlesActions.loadItem),
+        mergeMap(action => this.articlesService.getItem(action.id).pipe(
+            map(item => articlesActions.itemLoadedSuccess(item)),
+            catchError(() => of(articlesActions.ItemLoadedError))
+        ))
+    ));
+
     editItem$ = createEffect(() => this.actions$.pipe(
         ofType(articlesActions.editItem),
         mergeMap(action => this.articlesService.editItem(action).pipe(

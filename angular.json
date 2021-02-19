@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "hello-world"
+  "defaultProject": "hello-world",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

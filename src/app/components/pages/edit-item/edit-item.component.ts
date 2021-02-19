@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Item } from 'src/app/models/Item';
 import * as articlesActions from '../articles/articles.actions';
 import { getItemsList } from '../articles/articles.selectors';
 import { ArticlesService } from '../articles/articles.service';
+import { getSelectedItem } from '../articles/article/article.selectors';
 
 @Component({
   selector: 'app-edit-item',
@@ -18,10 +19,8 @@ export class EditItemComponent implements OnInit {
   alert: string = '';
   alertType: string = '';
 
-  storeSubsription: Subscription = null;
-
   items: Item[] = [];
-  item: Item = null;
+  item$: Observable<Item> = null;
 
   editItemForm = new FormGroup({
     title: new FormControl(),
@@ -37,42 +36,21 @@ export class EditItemComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store,
-    private itemsService: ArticlesService
+    private store: Store
   ) { }
 
   ngOnInit(): void {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.store.dispatch(articlesActions.loadItems());
-    this.prefillForm();
-  }
-
-  ngOnDestroy(): void {
-    this.storeSubsription.unsubscribe();
-  }
-
-  prefillForm(): void {
-    this.storeSubsription = this.store.select(getItemsList).subscribe(items => {
-      this.item = items.find(item => item.id === this.id);
-      
-      if (!this.item) return;
-  
-      const { title, price, date, image, content, quantity } = this.editItemForm.controls;
-  
-      title.setValue(this.item.title);
-      price.setValue(this.item.price);
-      date.setValue(this.item.date);
-      image.setValue(this.item.image);
-      content.setValue(this.item.content);
-      quantity.setValue(this.item.quantity);
-    });
+    this.store.dispatch(articlesActions.loadItem({ id: this.id }))
+    this.item$ = this.store.select(getSelectedItem);
   }
 
   onSubmit(): void {
-    if (!this.item) {
-      this.showAlert('Product was not found', 'danger');
-      return;
-    }
+    // if (!this.item) {
+    //   this.showAlert('Product was not found', 'danger');
+    //   return;
+    // }
     
     const { title, price, date, image, content, quantity } = this.editItemForm.value;
 
