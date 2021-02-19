@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { title } from 'process';
 import { Item } from 'src/app/models/Item';
-import { addItem } from '../articles/articles.actions';
-import { ArticlesService } from '../articles/articles.service';
+import * as articlesActions from '../articles/articles.actions';
 
 @Component({
   selector: 'app-new-item',
@@ -28,8 +26,7 @@ export class NewItemComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private router: Router,
-    private itemsService: ArticlesService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +42,8 @@ export class NewItemComponent implements OnInit {
 
     const item: Item = { title, price, date, image, content, quantity };
 
-    this.itemsService.createItem(item).subscribe();
+    this.store.dispatch(articlesActions.createItem(item));
+    // this.itemsService.createItem(item).subscribe();
     // this.store.dispatch(addItem({ id: 0, title, price, date, image, content, quantity }));
     this.showAlert('Product was added successfully', 'success');
     this.newItemForm.reset();

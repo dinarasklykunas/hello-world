@@ -20,6 +20,10 @@ export class ArticlesService {
     return this.http.get<Item[]>(this.itemsURL);
   };
 
+  getItem(id: number): Observable<Item> {
+    return this.http.get<Item>(this.itemsURL + '/' + id);
+  }
+
   createItem(item: Item): Observable<Item> {
     return this.http.post<Item>(this.itemsURL, item, this.httpOptions);
   }
@@ -28,8 +32,8 @@ export class ArticlesService {
     return this.http.put<Item>(this.itemsURL + '/' + item.id, item, this.httpOptions);
   }
 
-  deleteItem(item: Item): Observable<Item> {
-    return this.http.delete<Item>(this.itemsURL + '/' + item.id);
+  deleteItem(id: number): Observable<Item> {
+    return this.http.delete<Item>(this.itemsURL + '/' + id);
   }
 
   private handleError(error: HttpErrorResponse): any {

@@ -28,7 +28,7 @@ export class CartItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeItemsSubscription = this.itemsService.getItems().subscribe(items => {
-      this.store.dispatch(fromArticles.setItems({ items }));
+      this.store.dispatch(fromArticles.itemsLoadedSuccess({ items }));
       this.storeItems = items;
       this.cartItemsSubscription = this.store.select(fromCart.getCartItemsList).subscribe(cartItems => {
         this.cartItems = cartItems;

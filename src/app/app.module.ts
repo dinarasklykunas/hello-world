@@ -14,13 +14,15 @@ import { ArticlesComponent } from './components/pages/articles/articles.componen
 import { NewItemComponent } from './components/pages/new-item/new-item.component';
 import { EditItemComponent } from './components/pages/edit-item/edit-item.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ArticleComponent } from './components/layout/article/article.component';
+import { ArticleComponent } from './components/pages/articles/article/article.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducer } from './_store';
 import { CartComponent } from './components/pages/cart/cart.component';
 import { CartItemComponent } from './components/pages/cart/cart-item/cart-item.component';
 import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
+import { EffectsModule } from '@ngrx/effects';
+import { ArticlesEffects } from './components/pages/articles/articles.effects';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,10 @@ import { PageNotFoundComponent } from './components/pages/page-not-found/page-no
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 10,
-    })
+    }),
+    EffectsModule.forRoot([
+      ArticlesEffects
+    ])
   ],
   providers: [{
     provide: LOCALE_ID,

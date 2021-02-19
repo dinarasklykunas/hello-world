@@ -1,11 +1,10 @@
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Item } from 'src/app/models/Item';
-import { editItem, removeItem, setItems } from '../articles/articles.actions';
+import * as articlesActions from '../articles/articles.actions';
 import { getItemsList } from '../articles/articles.selectors';
 import { ArticlesService } from '../articles/articles.service';
 
@@ -15,7 +14,6 @@ import { ArticlesService } from '../articles/articles.service';
   styleUrls: ['./edit-item.component.scss']
 })
 export class EditItemComponent implements OnInit {
-  // -------------------------------------------------- SUTVARKYTI ! --------------------------------------------------------------
   id: number = 0;
   alert: string = '';
   alertType: string = '';
@@ -45,6 +43,7 @@ export class EditItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.store.dispatch(articlesActions.loadItems());
     this.prefillForm();
   }
 
@@ -53,14 +52,10 @@ export class EditItemComponent implements OnInit {
   }
 
   prefillForm(): void {
-    this.storeSubsription = this.itemsService.getItems().subscribe(items => {
-      this.store.dispatch(setItems({ items }));
+    this.storeSubsription = this.store.select(getItemsList).subscribe(items => {
       this.item = items.find(item => item.id === this.id);
       
-      if (!this.item) {
-        this.showAlert('Product was not found', 'danger');
-        return;
-      }
+      if (!this.item) return;
   
       const { title, price, date, image, content, quantity } = this.editItemForm.controls;
   
@@ -87,19 +82,15 @@ export class EditItemComponent implements OnInit {
     }
 
     const item: Item = { id: this.id, title, price, date, image, content, quantity };
-    
-    // return this.showAlert('Product editing function is disabled', 'danger');
 
-    this.itemsService.editItem(item).subscribe();
-    // this.store.dispatch(editItem(item));
+    this.store.dispatch(articlesActions.editItem(item));
     this.showAlert('Product was successfully saved!', 'success');
   }
   
   onDelete(): void {
     if (!confirm("Are you sure you want to delete this item?")) return;
-
-    this.itemsService.deleteItem(this.item).subscribe();
-    // this.store.dispatch(removeItem({ id: this.id }));
+    
+    this.store.dispatch(articlesActions.deleteItem({ id: this.id }));
     this.showAlert('Product was successfully deleted!', 'success', true);
   }
 
