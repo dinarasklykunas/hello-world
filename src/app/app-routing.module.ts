@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ArticlesComponent } from './components/pages/articles/articles.component';
+import { ArticlesComponent } from './components/pages/items/items.component';
 import { EditItemComponent } from './components/pages/edit-item/edit-item.component';
 import { NewItemComponent } from './components/pages/new-item/new-item.component';
 import { LoginComponent } from './components/pages/login/login.component';

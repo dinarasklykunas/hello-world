@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
-import * as fromArticles from '../../articles/articles.actions';
-import { ArticlesService } from '../../articles/articles.service';
+import * as fromArticles from '../../items/items.actions';
+import { ItemsService } from '../../items/items.service';
 import { editItem, removeItem } from '../cart.actions';
 import * as fromCart from '../cart.selectors';
 
@@ -23,12 +23,12 @@ export class CartItemComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private itemsService: ArticlesService,
+    private itemsService: ItemsService,
   ) { }
 
   ngOnInit(): void {
     this.storeItemsSubscription = this.itemsService.getItems().subscribe(items => {
-      this.store.dispatch(fromArticles.itemsLoadedSuccess({ items }));
+      this.store.dispatch(fromArticles.loadItemsSuccess({ items }));
       this.storeItems = items;
       this.cartItemsSubscription = this.store.select(fromCart.getCartItemsList).subscribe(cartItems => {
         this.cartItems = cartItems;

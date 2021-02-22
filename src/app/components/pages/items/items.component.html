@@ -6,7 +6,7 @@
         </h2>
     </header>
     <main class="d-sm-flex justify-content-center flex-wrap text-center">
-        <app-article *ngFor="let item of items$ | async" [item]="item"></app-article>
+        <app-item *ngFor="let item of items$ | async" [item]="item"></app-item>
     </main>
     <div class="text-center">
         <a routerLink="/new-item" class="btn">Add item</a>

@@ -3,14 +3,14 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/Cart-item';
 import { Item } from 'src/app/models/Item';
-import { getItemsList } from '../articles.selectors';
+import { getItemsList } from '../items.selectors';
 import { addItem, editItem } from '../../cart/cart.actions';
 import { getCartItemsList } from '../../cart/cart.selectors';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss']
+  selector: 'app-item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.scss']
 })
 export class ArticleComponent implements OnInit {
   @Input() item: Item = Input();

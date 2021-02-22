@@ -5,12 +5,12 @@ export const loadItems = createAction(
     '[Items] Load Items'
 );
 
-export const itemsLoadedSuccess = createAction(
+export const loadItemsSuccess = createAction(
     '[Items] Items Loaded Success',
     props<{ items: Item[] }>()
 );
 
-export const ItemsLoadedError = createAction(
+export const loadItemsError = createAction(
     '[Items] Items Loaded Error'
 );
 
@@ -19,39 +19,39 @@ export const loadItem = createAction(
     props<{ id: number }>()
 );
 
-export const itemLoadedSuccess = createAction(
+export const loadItemSuccess = createAction(
     '[Items] Item Loaded Success',
     props<Item>()
 );
 
-export const ItemLoadedError = createAction(
+export const loadItemError = createAction(
     '[Items] Item Loaded Error'
 );
 
 export const createItem = createAction(
-    '[Items] Insert New Item',
+    '[Items] Create New Item',
     props<Item>()
 );
 
 export const createItemSuccess = createAction(
-    '[Items] Insert New Item Success'
+    '[Items] Create New Item Success'
 );
 
 export const createItemError = createAction(
-    '[Items] Insert New Item Error'
+    '[Items] Create New Item Error'
 );
 
 export const deleteItem = createAction(
-    '[Edit Item] Remove Item',
+    '[Edit Item] Delete Item',
     props<{ id: number }>()
 );
 
 export const deleteItemSuccess = createAction(
-    '[Edit Item] Remove Item Success'
+    '[Edit Item] Delete Item Success'
 );
 
 export const deleteItemError = createAction(
-    '[Edit Item] Remove Item Error'
+    '[Edit Item] Delete Item Error'
 );
 
 export const editItem = createAction(

@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Item } from 'src/app/models/Item';
-import { getItemsList } from './articles.selectors';
-import * as articlesActions from './articles.actions';
+import { getItemsList } from './items.selectors';
+import * as articlesActions from './items.actions';
 
 @Component({
-  selector: 'app-articles',
-  templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.scss']
+  selector: 'app-items',
+  templateUrl: './items.component.html',
+  styleUrls: ['./items.component.scss']
 })
 export class ArticlesComponent implements OnInit {
   items$: Observable<Item[]>;

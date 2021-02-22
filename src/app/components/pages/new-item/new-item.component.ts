@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Item } from 'src/app/models/Item';
-import * as articlesActions from '../articles/articles.actions';
+import * as articlesActions from '../items/items.actions';
 
 @Component({
   selector: 'app-new-item',

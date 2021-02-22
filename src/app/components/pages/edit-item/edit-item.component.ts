@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Item } from 'src/app/models/Item';
-import * as articlesActions from '../articles/articles.actions';
-import { getItemsList } from '../articles/articles.selectors';
-import { ArticlesService } from '../articles/articles.service';
-import { getSelectedItem } from '../articles/article/article.selectors';
+import * as itemsActions from '../items/items.actions';
+import { FormGroupState } from 'ngrx-forms';
+import { EditItemFormModel } from '../items/items.reducer';
+import { getEditItemForm } from '../items/items.selectors';
 
 @Component({
   selector: 'app-edit-item',
@@ -16,20 +16,19 @@ import { getSelectedItem } from '../articles/article/article.selectors';
 })
 export class EditItemComponent implements OnInit {
   id: number = 0;
+  formState$: Observable<FormGroupState<EditItemFormModel>>;
+  
   alert: string = '';
   alertType: string = '';
 
-  items: Item[] = [];
-  item$: Observable<Item> = null;
-
-  editItemForm = new FormGroup({
-    title: new FormControl(),
-    price: new FormControl(),
-    date: new FormControl(),
-    image: new FormControl(),
-    content: new FormControl(),
-    quantity: new FormControl()
-  });
+  // editItemForm = new FormGroup({
+  //   title: new FormControl(),
+  //   price: new FormControl(),
+  //   date: new FormControl(),
+  //   image: new FormControl(),
+  //   content: new FormControl(),
+  //   quantity: new FormControl()
+  // });
 
   alertTimeout: object | number = null;
 
@@ -41,9 +40,9 @@ export class EditItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.store.dispatch(articlesActions.loadItems());
-    this.store.dispatch(articlesActions.loadItem({ id: this.id }))
-    this.item$ = this.store.select(getSelectedItem);
+    this.store.dispatch(itemsActions.loadItems());
+    this.store.dispatch(itemsActions.loadItem({ id: this.id }))
+    this.formState$ = this.store.select(getEditItemForm);
   }
 
   onSubmit(): void {
@@ -52,24 +51,24 @@ export class EditItemComponent implements OnInit {
     //   return;
     // }
     
-    const { title, price, date, image, content, quantity } = this.editItemForm.value;
+    // const { title, price, date, image, content, quantity } = this.editItemForm.value;
 
-    if (!this.validateForm(title, price, date, image, quantity)) {
-      this.showAlert('Please fill in all fields!', 'danger');
-      return;
-    }
+    // if (!this.validateForm(title, price, date, image, quantity)) {
+    //   this.showAlert('Please fill in all fields!', 'danger');
+    //   return;
+    // }
 
-    const item: Item = { id: this.id, title, price, date, image, content, quantity };
+    // const item: Item = { id: this.id, title, price, date, image, content, quantity };
 
-    this.store.dispatch(articlesActions.editItem(item));
-    this.showAlert('Product was successfully saved!', 'success');
+    // this.store.dispatch(itemsActions.editItem(item));
+    // this.showAlert('Product was successfully saved!', 'success');
   }
   
   onDelete(): void {
     if (!confirm("Are you sure you want to delete this item?")) return;
     
-    this.store.dispatch(articlesActions.deleteItem({ id: this.id }));
-    this.showAlert('Product was successfully deleted!', 'success', true);
+    this.store.dispatch(itemsActions.deleteItem({ id: this.id }));
+    this.showAlert('Product was successfully deleted!', 'success', false);
   }
 
   validateForm(

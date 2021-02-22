@@ -6,7 +6,7 @@ import { Item } from 'src/app/models/Item';
 @Injectable({
   providedIn: 'root'
 })
-export class ArticlesService {
+export class ItemsService {
   itemsURL: string = 'http://localhost:3000/items';
   httpOptions = {
     headers: new HttpHeaders({
