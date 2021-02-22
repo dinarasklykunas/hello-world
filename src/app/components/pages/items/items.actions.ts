@@ -21,7 +21,7 @@ export const loadItem = createAction(
 
 export const loadItemSuccess = createAction(
     '[Items] Item Loaded Success',
-    props<Item>()
+    props<{ item: Item }>()
 );
 
 export const loadItemError = createAction(
@@ -30,7 +30,7 @@ export const loadItemError = createAction(
 
 export const createItem = createAction(
     '[Items] Create New Item',
-    props<Item>()
+    props<{ item: Item }>()
 );
 
 export const createItemSuccess = createAction(
@@ -55,8 +55,7 @@ export const deleteItemError = createAction(
 );
 
 export const editItem = createAction(
-    '[Edit Item] Edit Item',
-    props<Item>()
+    '[Edit Item] Edit Item'
 );
 
 export const editItemSuccess = createAction(

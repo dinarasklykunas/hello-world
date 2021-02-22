@@ -46,22 +46,7 @@ export class EditItemComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // if (!this.item) {
-    //   this.showAlert('Product was not found', 'danger');
-    //   return;
-    // }
-    
-    // const { title, price, date, image, content, quantity } = this.editItemForm.value;
-
-    // if (!this.validateForm(title, price, date, image, quantity)) {
-    //   this.showAlert('Please fill in all fields!', 'danger');
-    //   return;
-    // }
-
-    // const item: Item = { id: this.id, title, price, date, image, content, quantity };
-
-    // this.store.dispatch(itemsActions.editItem(item));
-    // this.showAlert('Product was successfully saved!', 'success');
+    this.store.dispatch(itemsActions.editItem());
   }
   
   onDelete(): void {

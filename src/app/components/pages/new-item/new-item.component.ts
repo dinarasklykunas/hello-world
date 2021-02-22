@@ -42,9 +42,7 @@ export class NewItemComponent implements OnInit {
 
     const item: Item = { title, price, date, image, content, quantity };
 
-    this.store.dispatch(articlesActions.createItem(item));
-    // this.itemsService.createItem(item).subscribe();
-    // this.store.dispatch(addItem({ id: 0, title, price, date, image, content, quantity }));
+    this.store.dispatch(articlesActions.createItem({ item }));
     this.showAlert('Product was added successfully', 'success');
     this.newItemForm.reset();
   }

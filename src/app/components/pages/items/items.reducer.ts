@@ -26,7 +26,14 @@ export interface ItemState {
 
 export const itemsInitialState: ItemsState = {
     items: [],
-    selectedItem: null,
+    selectedItem: {
+        title: '',
+        price: 0,
+        date: '',
+        image: '',
+        content: '',
+        quantity: 0
+    },
     editItemForm: createFormGroupState<EditItemFormModel>(editItemFormKey, {
         title: '',
         price: 0,
@@ -43,18 +50,10 @@ export const itemsReducer = createReducer(
     on(itemsActions.loadItemsSuccess, (state, props) => ({
         ...state,
         items: props.items,
-        selectedItem: null
+        selectedItem: itemsInitialState.selectedItem
     })),
     on(itemsActions.loadItemSuccess, (state, props) => ({
         ...state,
-        selectedItem: props,
-        editItemForm: createFormGroupState<EditItemFormModel>(editItemFormKey, {
-            title: props.title,
-            price: props.price,
-            date: props.date,
-            image: props.image,
-            content: props.content,
-            quantity: props.quantity
-        })
+        selectedItem: props.item
     }))
 );
